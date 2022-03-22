@@ -20,9 +20,7 @@ exports.createBakso = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: `Berhasil membuat menu Bakso`,
-      result: {
-        query,
-      },
+      result: query,
     });
   } catch (error) {
     console.log("ini error = ", error);
