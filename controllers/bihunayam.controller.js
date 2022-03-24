@@ -1,7 +1,7 @@
-const { mieayam } = require("../models/index");
+const { bihunayam } = require("../models/index");
 const { Op } = require("sequelize");
 
-exports.createMieAyam = async (req, res) => {
+exports.createBihunAyam = async (req, res) => {
   const { nama, qty, harga } = req.body;
   const Body = {
     nama,
@@ -17,10 +17,10 @@ exports.createMieAyam = async (req, res) => {
     .replace(/\-\-+/g, "-")
     .replace(/[^\w\-]+/g, "");
   try {
-    const query = await mieayam.create({ ...Body });
+    const query = await bihunayam.create({ ...Body });
     return res.status(200).json({
       success: true,
-      message: `Berhasil membuat menu MieAyam`,
+      message: `Berhasil membuat menu Bihun Ayam`,
       result: query,
     });
   } catch (error) {
@@ -31,13 +31,13 @@ exports.createMieAyam = async (req, res) => {
     });
   }
 };
-exports.getAllMieAyam = async (req, res) => {
+exports.getAllBihunAyam = async (req, res) => {
   try {
-    const query = await mieayam.findAll();
+    const query = await bihunayam.findAll();
     if (query.length === 0) {
       return res.status(203).json({
         success: true,
-        message: `Tidak ada Menu Mie Ayam`,
+        message: `Tidak ada Menu Bihun Ayam`,
       });
     }
     return res.status(200).json({
@@ -51,21 +51,21 @@ exports.getAllMieAyam = async (req, res) => {
     });
   }
 };
-exports.findMieAyamBySlug = async (req, res) => {
+exports.findBihunAyamBySlug = async (req, res) => {
   const { slug } = req.params;
   try {
-    const findMieAyam = await mieayam.findAll({
+    const findBihunAyam = await bihunayam.findAll({
       where: { slug: { [Op.eq]: slug } },
     });
-    if (findMieAyam.length === 0) {
+    if (findBihunAyam.length === 0) {
       return res.status(205).json({
         success: true,
-        message: `Tidak ada menu Mie Ayam`,
+        message: `Tidak ada menu Bihun Ayam`,
       });
     }
     return res.status(200).json({
       success: true,
-      results: findMieAyam,
+      results: findBihunAyam,
     });
   } catch (err) {
     console.log("err = ", err);
@@ -75,15 +75,15 @@ exports.findMieAyamBySlug = async (req, res) => {
     });
   }
 };
-exports.updateMieAyam = async (req, res) => {
+exports.updateBihunAyam = async (req, res) => {
   const { nama, harga, qty } = req.body;
   const { id } = req.params;
-  const findMieAyam = await mieayam.findByPk(id);
+  const findBihunAyam = await bihunayam.findByPk(id);
 
-  if (findMieAyam === null) {
-    return res.status(401).json({
+  if (findBihunAyam === null) {
+    return res.status(204).json({
       success: true,
-      message: `Tidak ada Menu Mie Ayam`,
+      message: `Tidak ada Menu Bihun Ayam`,
     });
   }
   try {
@@ -95,7 +95,7 @@ exports.updateMieAyam = async (req, res) => {
       .replace(/\s+/g, "-")
       .replace(/\-\-+/g, "-")
       .replace(/[^\w\-]+/g, "");
-    const updatemieAyam = await mieayam.update(
+    const updateBihunAyam = await bihunayam.update(
       {
         nama,
         harga,
@@ -110,16 +110,16 @@ exports.updateMieAyam = async (req, res) => {
         },
       }
     );
-    if (updatemieAyam === null) {
+    if (updateBihunAyam === null) {
       return res.status(405).json({
         success: false,
-        message: `Gagal Mengubah Menu Mie Ayam`,
+        message: `Gagal Mengubah Menu Bihun Ayam`,
       });
     }
-    const query = await mieayam.findByPk(id);
+    const query = await bihunayam.findByPk(id);
     return res.status(200).json({
       success: true,
-      message: `Berhasil Mengubah Menu Mie Ayam`,
+      message: `Berhasil Mengubah Menu Bihun Ayam`,
       data: query,
     });
   } catch (err) {
@@ -129,28 +129,28 @@ exports.updateMieAyam = async (req, res) => {
     });
   }
 };
-exports.deleteMieAyam = async (req, res) => {
+exports.deleteBihunAyam = async (req, res) => {
   const { id } = req.params;
-  const findMieAyam = await mieayam.findByPk(id);
-  if (findMieAyam === null) {
+  const findBihunAyam = await bihunayam.findByPk(id);
+  if (findBihunAyam === null) {
     return res.status(402).json({
       success: false,
-      message: `Tidak ditemukan menu Mie Ayam yang diminta`,
+      message: `Tidak ditemukan menu Bihun Ayam yang diminta`,
     });
   }
   try {
-    const deleteMieAyam = await mieayam.destroy({
+    const deleteBihunAyam = await bihunayam.destroy({
       where: { id: { [Op.eq]: id } },
     });
-    if (deleteMieAyam === null) {
+    if (deleteBihunAyam === null) {
       return res.status(402).json({
         success: false,
-        message: `Gagal menghapus Menu Mie Ayam`,
+        message: `Gagal menghapus Menu Bihun Ayam`,
       });
     }
     return res.status(200).json({
       success: true,
-      message: `Berhasil menghapus Menu Mie Ayam`,
+      message: `Berhasil menghapus Menu Bihun Ayam`,
     });
   } catch (err) {
     return res.status(405).json({
