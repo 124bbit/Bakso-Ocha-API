@@ -6,6 +6,7 @@ const baksoRoutes = require("./routes/bakso.route");
 const mieayamRoutes = require("./routes/mieayam.route.js");
 const bihunayamRoutes = require("./routes/bihunayam.route.js");
 const minumanRoutes = require("./routes/minuman.route.js");
+const searchRoutes = require("./routes/search.route.js");
 
 require("dotenv").config();
 const corsOptions = {
@@ -26,6 +27,9 @@ app.use("/BihunAyam", bihunayamRoutes);
 
 // Routes Menu Minuman
 app.use("/Minuman", minumanRoutes);
+
+// Routes Search Menu
+app.use("/Search", searchRoutes);
 
 app.listen(process.env.PORT, () => {
   sequelize.sync({ alter: true });
